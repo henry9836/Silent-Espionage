@@ -36,7 +36,6 @@ public static class AdTime
         //Show Ad
         if (Advertisement.IsReady())
         {
-            //Advertisement.Show(adID, new ShowOptions { resultCallback = HandleShowResult });
             Advertisement.Show(adID);
             lastAdSuccessful = true;
             return lastAdSuccessful;
@@ -45,32 +44,5 @@ public static class AdTime
         //Ad Failed To Show
         return lastAdSuccessful;
     }
-
-    //private static void HandleShowResult(ShowResult result)
-    //{
-    //    switch (result)
-    //    {
-    //        case ShowResult.Finished:
-    //            {
-    //                Debug.Log("The ad was successfully shown.");
-    //                lastAdSuccessful = true;
-    //                break;
-    //            }
-    //        case ShowResult.Skipped:
-    //            {
-    //                Debug.Log("The ad was skipped before reaching the end.");
-    //                lastAdSuccessful = true;
-    //                break;
-    //            }
-    //        case ShowResult.Failed:
-    //            {
-    //                Debug.LogError("The ad failed to be shown.");
-    //                break;
-    //            }
-    //    }
-
-    //    Debug.Log($"A issue occured when trying to handle the result of the ad: {result}");
-
-    //}
 
 }
