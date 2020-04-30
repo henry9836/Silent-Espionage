@@ -5,9 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
+
+    private void Start()
+    {
+        //Start Ad Service
+        AdTime.Initialize();
+    }
+
     public void Play()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Level1");
     }
 
     public void Quit()
