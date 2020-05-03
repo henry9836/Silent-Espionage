@@ -27,8 +27,6 @@ public class TimeMechanic : MonoBehaviour
         Time.timeScale = Mathf.Lerp(0.1f, 1.0f, Mathf.Clamp(agent.velocity.magnitude, 0.0f, 1.0f) / timeToChange);
         Time.fixedDeltaTime = Time.timeScale * normalFixedDeltaTime;
 
-        Debug.Log($"timeScale[{Time.timeScale}] timer[{moveTimer}]");
-
 
     }
 }

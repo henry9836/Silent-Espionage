@@ -11,6 +11,7 @@ public class chasePlayer : StateMachineBehaviour
     private List<Transform> patrolPoints = new List<Transform>();
     private GameObject player;
     private GameObject gun;
+    private Vector3 lastSeenPlayerPos;
 
     private float timeOutTime;
     private float timeOutTimer;
@@ -85,14 +86,46 @@ public class chasePlayer : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //If we can see the player move towards him and get within shoot range
-        if (guardCtrl.isLookingAtPlayer)
+        if (animator.GetBool("CanSeePlayer"))
         {
+
+            if (timeOutTimer > timeOutTime)
+            {
+                timeOutTimer = timeOutTime;
+            }
+
+            timeOutTimer -= Time.deltaTime;
+
             agent.SetDestination(player.transform.position);
+            lastSeenPlayerPos = player.transform.position;
+
+            if (player.GetComponent<NavMeshAgent>().velocity.magnitude > 0)
+            {
+                lastSeenPlayerPos += player.transform.forward * player.GetComponent<NavMeshAgent>().velocity.magnitude;
+            }
+
             timeOutTimer = 0.0f;
         }
+        //Lost sight of player
         else
         {
+
+            if (timeOutTimer < 0.0f)
+            {
+                timeOutTimer = 0.0f;
+            }
+
             timeOutTimer += Time.deltaTime;
+
+            //Go to last seen Pos
+            agent.SetDestination(lastSeenPlayerPos);
+
+            //When we go to last position look at other positions around
+            if (agent.velocity.magnitude < 0.1f)
+            {
+                lastSeenPlayerPos += new Vector3(Random.Range(guardCtrl.wanderRange.x, guardCtrl.wanderRange.y), 0.0f, Random.Range(guardCtrl.wanderRange.x, guardCtrl.wanderRange.y));
+            }
+
         }
 
         //Timeout
@@ -102,7 +135,7 @@ public class chasePlayer : StateMachineBehaviour
         }
 
         //Are we close enough to the player to shoot and have ammo if so increase gun timer 
-        if (Vector3.Distance(guard.transform.position, player.transform.position) <= (gunRange - 1.5f) && guardCtrl.magCurrentSize > 0)
+        if (Vector3.Distance(guard.transform.position, player.transform.position) <= (gunRange - 1.5f) && guardCtrl.magCurrentSize > 0 && animator.GetBool("CanSeePlayer"))
         {
             if (gunTimer < 0.0f)
             {
@@ -116,7 +149,7 @@ public class chasePlayer : StateMachineBehaviour
             gunTimer += Time.deltaTime;
         }
         //Are we close enough to the player to shoot and have no ammo if so decrease gun timer 
-        else if (Vector3.Distance(guard.transform.position, player.transform.position) <= (gunRange - 1.5f) && guardCtrl.magCurrentSize <= 0)
+        else if (Vector3.Distance(guard.transform.position, player.transform.position) <= (gunRange - 1.5f) && guardCtrl.magCurrentSize <= 0 && animator.GetBool("CanSeePlayer"))
         {
             //stop chasing
             agent.ResetPath();
@@ -138,9 +171,10 @@ public class chasePlayer : StateMachineBehaviour
                 gunTimer = gunTime;
             }
         }
+
+        //Cannot shoot player as he/she is too far away
         else
         {
-
             if (gunTimer > gunTime)
             {
                 gunTimer = gunTime;
@@ -157,6 +191,7 @@ public class chasePlayer : StateMachineBehaviour
         {
             animator.SetTrigger("Shoot");
         }
+
 
     }
 
