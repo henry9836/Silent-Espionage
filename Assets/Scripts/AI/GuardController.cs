@@ -116,19 +116,31 @@ public class GuardController : MonoBehaviour
             }
             else
             {
-                Debug.Log("2");
+                //Laser
+                if (Physics.Raycast(gun.transform.position, gun.transform.forward, out hit, shootDistanceThreshold)){
+
+                    lRender.SetPosition(1, hit.point);
+                }
+                else
+                {
+                    lRender.SetPosition(1, gun.transform.position + (gun.transform.forward * seeDistance));
+                }
+
+
                 Debug.DrawRay(eyes.position, dir * hit.distance, Color.red);
                 animator.SetBool("CanSeePlayer", false);
-                lRender.SetPosition(1, gun.transform.position + (gun.transform.forward * hit.distance));
             }
         }
         else
         {
-            Debug.Log("3");
             Debug.DrawRay(eyes.position, dir * seeDistance, Color.red);
             lRender.SetPosition(1, gun.transform.position + (gun.transform.forward * seeDistance));
             animator.SetBool("CanSeePlayer", false);
         }
+
+        //Draw Vision
+        Debug.DrawRay(eyes.position, transform.forward * seeDistance, Color.cyan);
+        Debug.DrawRay(eyes.position, transform.forward * shootDistanceThreshold, Color.magenta);
 
         //If the gun is out draw laser
         if (gun.transform.localScale.x > 0.0f)
