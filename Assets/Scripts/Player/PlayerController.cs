@@ -13,6 +13,11 @@ public class PlayerController : MonoBehaviour
     private LineRenderer lineR;
     private MeshRenderer destMeshRender;
 
+    public void Explode()
+    {
+
+    }
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -49,7 +54,6 @@ public class PlayerController : MonoBehaviour
         //If we are far enough away from desintation visual on
         if ((thresholdDistanceForVisual <= agent.remainingDistance) || agent.remainingDistance == Mathf.Infinity)
         {
-            Debug.Log("Too Far");
 
             //Make dest visualble
             destMeshRender.enabled = true;

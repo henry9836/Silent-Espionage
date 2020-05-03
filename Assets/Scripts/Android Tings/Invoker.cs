@@ -14,7 +14,7 @@ public class Invoker : MonoBehaviour
     {
         if (!AdTime.lastAdSuccessful)
         {
-            Debug.Log($"Ad returned: {AdTime.AdThyme(AdTime.ADID_LOSS)}");
+            AdTime.AdThyme(AdTime.ADID_LOSS);
         }
     }
 }

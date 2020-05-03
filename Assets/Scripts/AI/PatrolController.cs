@@ -69,7 +69,7 @@ public class PatrolController : StateMachineBehaviour
         {
             //set next target
             targetTransformelement++;
-            if (targetTransformelement > patrolPoints.Count)
+            if (targetTransformelement > patrolPoints.Count - 1)
             {
                 targetTransformelement = 0;
             }

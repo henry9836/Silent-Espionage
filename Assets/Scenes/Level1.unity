@@ -274,6 +274,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &837482888 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3217182949202527531, guid: 9fa7c0c65954ca246ab60ad089e8807e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1266580856284441356}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &837482896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837482888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c868190144e7d2e418415266f69f04d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToChange: 0.1
 --- !u!1 &883275552 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7746657646986553337, guid: 2368443c3ce41d542b22e0574ad52890,
@@ -1253,6 +1272,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerObject
       objectReference: {fileID: 0}
+    - target: {fileID: 6344354395943034349, guid: 9fa7c0c65954ca246ab60ad089e8807e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fa7c0c65954ca246ab60ad089e8807e, type: 3}
 --- !u!1001 &5124948416013626598
@@ -1262,11 +1286,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1258148217914732014, guid: dccc9b06feb0efe49bae50b134cb2441,
-        type: 3}
-      propertyPath: guardPath.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 1258148217914732014, guid: dccc9b06feb0efe49bae50b134cb2441,
         type: 3}
       propertyPath: guardPath.Array.data[0]
@@ -1287,21 +1306,6 @@ PrefabInstance:
       propertyPath: guardPath.Array.data[3]
       value: 
       objectReference: {fileID: 1936441475}
-    - target: {fileID: 1258148217914732014, guid: dccc9b06feb0efe49bae50b134cb2441,
-        type: 3}
-      propertyPath: arriveThreshold
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5124948415226208630, guid: dccc9b06feb0efe49bae50b134cb2441,
-        type: 3}
-      propertyPath: m_Speed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5124948415226208630, guid: dccc9b06feb0efe49bae50b134cb2441,
-        type: 3}
-      propertyPath: m_Acceleration
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 5608523533505571082, guid: dccc9b06feb0efe49bae50b134cb2441,
         type: 3}
       propertyPath: m_LocalPosition.x
