@@ -269,10 +269,20 @@ PrefabInstance:
       propertyPath: onComplete.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1305742327541904434, guid: 4a84e972c1fe6d846a950510d51dbad8,
+        type: 3}
+      propertyPath: onComplete.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1305742327541904435, guid: 4a84e972c1fe6d846a950510d51dbad8,
         type: 3}
       propertyPath: m_Name
       value: EscapeInteractZone
+      objectReference: {fileID: 0}
+    - target: {fileID: 1305742327541904435, guid: 4a84e972c1fe6d846a950510d51dbad8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1305742327541904437, guid: 4a84e972c1fe6d846a950510d51dbad8,
         type: 3}
@@ -1350,7 +1360,7 @@ PrefabInstance:
     - target: {fileID: 218799608317671871, guid: 9fa7c0c65954ca246ab60ad089e8807e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.47
+      value: 15.42
       objectReference: {fileID: 0}
     - target: {fileID: 218799608317671871, guid: 9fa7c0c65954ca246ab60ad089e8807e,
         type: 3}
@@ -1407,6 +1417,11 @@ PrefabInstance:
       propertyPath: destinationObj
       value: 
       objectReference: {fileID: 883275552}
+    - target: {fileID: 2403388974272792224, guid: 9fa7c0c65954ca246ab60ad089e8807e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3217182949202527531, guid: 9fa7c0c65954ca246ab60ad089e8807e,
         type: 3}
       propertyPath: m_Name
@@ -2025,6 +2040,11 @@ PrefabInstance:
       propertyPath: currentObjective
       value: 
       objectReference: {fileID: 335586710}
+    - target: {fileID: 2291215861164303348, guid: fedfb5419f47d754d80459ff841b9e54,
+        type: 3}
+      propertyPath: LevelID
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5067674721691993933, guid: fedfb5419f47d754d80459ff841b9e54,
         type: 3}
       propertyPath: m_Name
