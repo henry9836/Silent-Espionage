@@ -205,7 +205,6 @@ GameObject:
   m_Component:
   - component: {fileID: 366240558}
   - component: {fileID: 366240557}
-  - component: {fileID: 366240556}
   m_Layer: 0
   m_Name: PatrolPath
   m_TagString: Untagged
@@ -213,45 +212,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!23 &366240556
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 366240554}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!33 &366240557
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -396,7 +356,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1182019514}
   - component: {fileID: 1182019513}
-  - component: {fileID: 1182019512}
   m_Layer: 0
   m_Name: PatrolPath
   m_TagString: Untagged
@@ -404,45 +363,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!23 &1182019512
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1182019510}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!33 &1182019513
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -835,7 +755,7 @@ Transform:
   m_LocalScale: {x: 21.788, y: 5.6342, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1936441471
 GameObject:
@@ -847,7 +767,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1936441475}
   - component: {fileID: 1936441474}
-  - component: {fileID: 1936441473}
   m_Layer: 0
   m_Name: PatrolPath
   m_TagString: Untagged
@@ -855,45 +774,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!23 &1936441473
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1936441471}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!33 &1936441474
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1112,7 +992,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2061409256}
   - component: {fileID: 2061409255}
-  - component: {fileID: 2061409254}
   m_Layer: 0
   m_Name: PatrolPath
   m_TagString: Untagged
@@ -1120,45 +999,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!23 &2061409254
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2061409252}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!33 &2061409255
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1226,7 +1066,7 @@ PrefabInstance:
     - target: {fileID: 218799608317671871, guid: 9fa7c0c65954ca246ab60ad089e8807e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 218799608317671871, guid: 9fa7c0c65954ca246ab60ad089e8807e,
         type: 3}
@@ -1282,40 +1122,15 @@ PrefabInstance:
       propertyPath: guardPath.Array.data[3]
       value: 
       objectReference: {fileID: 1936441475}
-    - target: {fileID: 2282744757850220277, guid: dccc9b06feb0efe49bae50b134cb2441,
+    - target: {fileID: 1258148217914732014, guid: dccc9b06feb0efe49bae50b134cb2441,
         type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7453561
+      propertyPath: seeDistance
+      value: 45
       objectReference: {fileID: 0}
-    - target: {fileID: 2282744757850220277, guid: dccc9b06feb0efe49bae50b134cb2441,
+    - target: {fileID: 1258148217914732014, guid: dccc9b06feb0efe49bae50b134cb2441,
         type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.6666666
-      objectReference: {fileID: 0}
-    - target: {fileID: 2282744757850220277, guid: dccc9b06feb0efe49bae50b134cb2441,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.00000032264313
-      objectReference: {fileID: 0}
-    - target: {fileID: 2282744757850220277, guid: dccc9b06feb0efe49bae50b134cb2441,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 96.379
-      objectReference: {fileID: 0}
-    - target: {fileID: 2282744757850220277, guid: dccc9b06feb0efe49bae50b134cb2441,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -0.000015258789
-      objectReference: {fileID: 0}
-    - target: {fileID: 2282744757850220277, guid: dccc9b06feb0efe49bae50b134cb2441,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 2282744757850220277, guid: dccc9b06feb0efe49bae50b134cb2441,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.00000033845316
+      propertyPath: shootDistanceThreshold
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5608523533505571082, guid: dccc9b06feb0efe49bae50b134cb2441,
         type: 3}

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -26,6 +27,8 @@ public class GuardController : MonoBehaviour
     [HideInInspector]
     public bool reloading = false;
     public Vector2 wanderRange = new Vector2(-5.0f, 5.0f);
+    public Light muzzleLight;
+    public GameObject muzzleObj;
 
     private RaycastHit hit;
     private Animator animator;
@@ -43,6 +46,9 @@ public class GuardController : MonoBehaviour
     {
         if (!reloading && magCurrentSize > 0)
         {
+            //Effects
+            StartCoroutine(muzzleVisual());
+
             GameObject tmp = Instantiate(bullet, gun.transform.position, Quaternion.identity);
 
             tmp.transform.LookAt(gun.transform.forward + gun.transform.position);
@@ -54,6 +60,10 @@ public class GuardController : MonoBehaviour
 
     private void Start()
     {
+
+        muzzleLight.enabled = false;
+        muzzleObj.SetActive(false);
+
         if (guardPath.Count < 1)
         {
             Debug.LogWarning($"No Patrol set for guard: {gameObject.name}");
@@ -106,15 +116,17 @@ public class GuardController : MonoBehaviour
             }
             else
             {
+                Debug.Log("2");
                 Debug.DrawRay(eyes.position, dir * hit.distance, Color.red);
                 animator.SetBool("CanSeePlayer", false);
-                lRender.SetPosition(1, gun.transform.forward * hit.distance);
+                lRender.SetPosition(1, gun.transform.position + (gun.transform.forward * hit.distance));
             }
         }
         else
         {
+            Debug.Log("3");
             Debug.DrawRay(eyes.position, dir * seeDistance, Color.red);
-            lRender.SetPosition(1, gun.transform.forward * seeDistance);
+            lRender.SetPosition(1, gun.transform.position + (gun.transform.forward * seeDistance));
             animator.SetBool("CanSeePlayer", false);
         }
 
@@ -138,6 +150,16 @@ public class GuardController : MonoBehaviour
         yield return new WaitForSeconds(reloadTime);
         magCurrentSize = magSize;
         reloading = false;
+    }
+
+    IEnumerator muzzleVisual()
+    {
+        muzzleLight.enabled = true;
+        muzzleObj.transform.rotation = Quaternion.Euler(Random.Range(-360, 360), muzzleObj.transform.rotation.eulerAngles.y, muzzleObj.transform.rotation.eulerAngles.z);
+        muzzleObj.SetActive(true);
+        yield return new WaitForSeconds(0.05f);
+        muzzleLight.enabled = false;
+        muzzleObj.SetActive(false);
     }
 
 }
