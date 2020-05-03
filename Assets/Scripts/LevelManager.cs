@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class LevelManager : MonoBehaviour
 {
@@ -10,11 +11,16 @@ public class LevelManager : MonoBehaviour
     public Text bestTime;
     public Text currentObjective;
     public int LevelID = -1;
+    public GameObject restartUI;
+    public GameObject continueUI;
+    [HideInInspector]
+    public bool levelOver = false;
+
     
     private int objectivesCompleted = 0;
     private string timerString;
     private float timer = 0.0f;
-    private float bestTimeFloat = Mathf.Infinity;
+    private float bestTimeFloat = 0.0f;
     private GameObject player;
     private PlayerController playerCtrl;
     private bool shownAd = false;
@@ -22,6 +28,25 @@ public class LevelManager : MonoBehaviour
     public void objectiveCompleted()
     {
         objectivesCompleted++;
+    }
+
+    void endScreen()
+    {
+        levelOver = true;
+
+        restartUI.SetActive(true);
+
+        if (playerCtrl.amDead)
+        {
+            if (bestTimeFloat != 0.0f)
+            {
+                continueUI.SetActive(true);
+            }
+        }
+        else
+        {
+            continueUI.SetActive(true);
+        }
     }
 
     private void Start()
@@ -32,8 +57,11 @@ public class LevelManager : MonoBehaviour
 
         //Load best time if there is one
         bestTimeFloat = PlayerPrefs.GetFloat("LEVELBESTTIME" + LevelID.ToString());
-        bestTime.text = (Mathf.Round(bestTimeFloat * 100f) / 100f).ToString();
 
+        if (bestTimeFloat > 0.0f)
+        {
+            bestTime.text = (Mathf.Round(bestTimeFloat * 100f) / 100f).ToString();
+        }
         //Start Ad Service
         AdTime.Initialize();
     }
@@ -43,7 +71,7 @@ public class LevelManager : MonoBehaviour
         timerString = (Mathf.Round(timer * 100f) / 100f).ToString();
         currentTime.text = timerString;
         //During level
-        if (objectivesCompleted < objectiveLines.Count)
+        if (objectivesCompleted < objectiveLines.Count && !playerCtrl.amDead)
         {
             currentObjective.text = objectiveLines[objectivesCompleted];
             timer += Time.unscaledDeltaTime;
@@ -51,20 +79,25 @@ public class LevelManager : MonoBehaviour
         //Completed Level
         else
         {
-            Debug.Log("Win!");
-            PlayerPrefs.SetFloat("LEVELBESTTIME" + LevelID.ToString(), (Mathf.Round(timer * 100f) / 100f));
+            endScreen();
+            currentObjective.text = "You Win!";
+            //If we have a new best time
+            if (bestTimeFloat > (Mathf.Round(timer * 100f) / 100f)) {
+                PlayerPrefs.SetFloat("LEVELBESTTIME" + LevelID.ToString(), (Mathf.Round(timer * 100f) / 100f));
+            }
         }
 
         //Lost Level
         if (playerCtrl.amDead)
         {
+            endScreen();
+            currentObjective.text = "Game Over";
             //Show Ad
             if (!shownAd)
             {
                 StartCoroutine(showAd());
                 shownAd = true;
             }
-            Debug.Log("Lost");
         }
 
 

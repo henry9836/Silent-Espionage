@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class InteractArea : MonoBehaviour
 {
@@ -14,7 +15,12 @@ public class InteractArea : MonoBehaviour
 
     private bool playerInArea;
     private float playerTimer = 0.0f;
+    private Image progressUI;
 
+    private void Start()
+    {
+        progressUI = GameObject.Find("Interact Progress").GetComponent<Image>();
+    }
 
     void Update()
     {
@@ -33,9 +39,12 @@ public class InteractArea : MonoBehaviour
 
             progress = playerTimer / timeToComplete;
 
+            progressUI.fillAmount = progress;
+
             if (progress >= 1.0f)
             {
                 onComplete.Invoke();
+                progressUI.fillAmount = 0.0f;
                 completed = true;
             }
 

@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private NavMeshAgent agent;
     private LineRenderer lineR;
     private MeshRenderer destMeshRender;
+    private LevelManager levelMan;
 
     public void Explode()
     {
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         lineR = GetComponent<LineRenderer>();
+        levelMan = GameObject.Find("LevelManager").GetComponent<LevelManager>();
 
         if (!destinationObj)
         {
@@ -72,7 +74,7 @@ public class PlayerController : MonoBehaviour
             Explode();
         }
 
-        if (!amDead)
+        if (!amDead && !levelMan.levelOver)
         {
 
             //Movement
