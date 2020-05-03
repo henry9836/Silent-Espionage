@@ -43,3 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64893c7adba0e004ea0f824c263b1dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectiveLines:
+  - Hack The Laptop
+  - Escape
+  currentTime: {fileID: 0}
+  bestTime: {fileID: 0}
+  currentObjective: {fileID: 0}

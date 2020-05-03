@@ -29,7 +29,7 @@ public class upAndDown : MonoBehaviour
             transform.localScale = Vector3.Slerp(maxScale, originalScale, timer / timeToScale);
         }
 
-        timer += Time.deltaTime;
+        timer += Time.unscaledDeltaTime;
 
         if (timer >= timeToScale)
         {

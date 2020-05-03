@@ -32,6 +32,13 @@ public class InteractArea : MonoBehaviour
             playerTimer = Mathf.Clamp(playerTimer, 0.0f, 1.0f);
 
             progress = playerTimer / timeToComplete;
+
+            if (progress >= 1.0f)
+            {
+                onComplete.Invoke();
+                completed = true;
+            }
+
         }
     }
 
