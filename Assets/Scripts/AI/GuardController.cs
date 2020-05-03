@@ -17,6 +17,7 @@ public class GuardController : MonoBehaviour
     public float reloadTime = 2.0f;
     public Vector3 gunScaleTarget;
     public GameObject gun;
+    public GameObject bullet;
     public int magSize = 8;
     //[HideInInspector]
     public int magCurrentSize = 0;
@@ -31,6 +32,7 @@ public class GuardController : MonoBehaviour
     private GameObject player;
     private AudioSource audioSrc;
     private NavMeshAgent agent;
+    private LineRenderer lRender;
 
     public void Reload()
     {
@@ -41,7 +43,10 @@ public class GuardController : MonoBehaviour
     {
         if (!reloading && magCurrentSize > 0)
         {
-            player.GetComponent<PlayerController>().Explode();
+            GameObject tmp = Instantiate(bullet, gun.transform.position, Quaternion.identity);
+
+            tmp.transform.LookAt(gun.transform.forward + gun.transform.position);
+
             audioSrc.PlayOneShot(shootSound);
             magCurrentSize--;
         }
@@ -59,6 +64,7 @@ public class GuardController : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSrc = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
+        lRender = GetComponent<LineRenderer>();
     }
 
     private void Update()
@@ -67,8 +73,8 @@ public class GuardController : MonoBehaviour
         Debug.DrawRay(eyes.position, (player.transform.position - eyes.position).normalized, Color.red);
 
         RaycastHit hit;
-        // Does the ray intersect any objects excluding the player layer
 
+        // Does the ray intersect any objects excluding the player layer
         Vector3 dir = ((player.transform.position + (Vector3.up * 0.5f)) - eyes.position).normalized;
 
         //is the player in front of the guard?
@@ -91,18 +97,38 @@ public class GuardController : MonoBehaviour
 
                 Debug.DrawRay(eyes.position, dir * seeDistance, Color.yellow);
                 animator.SetBool("CanSeePlayer", true);
+
+                //Aim gun at player
+                gun.transform.LookAt(player.transform.position + (Vector3.up * 0.5f));
+                gun.transform.rotation = Quaternion.Euler(new Vector3(gun.transform.rotation.eulerAngles.x, gun.transform.rotation.eulerAngles.y, 180.0f));
+                lRender.SetPosition(1, player.transform.position + (Vector3.up * 0.5f));
+
             }
             else
             {
                 Debug.DrawRay(eyes.position, dir * hit.distance, Color.red);
                 animator.SetBool("CanSeePlayer", false);
+                lRender.SetPosition(1, gun.transform.forward * hit.distance);
             }
         }
         else
         {
             Debug.DrawRay(eyes.position, dir * seeDistance, Color.red);
+            lRender.SetPosition(1, gun.transform.forward * seeDistance);
             animator.SetBool("CanSeePlayer", false);
         }
+
+        //If the gun is out draw laser
+        if (gun.transform.localScale.x > 0.0f)
+        {
+            lRender.SetPosition(0, gun.transform.position);
+            lRender.enabled = true;
+        }
+        else
+        {
+            lRender.enabled = false;
+        }
+
     }
 
     IEnumerator reloadGun()

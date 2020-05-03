@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     public void Explode()
     {
-
+        Debug.Log("Player Dead");
     }
 
     private void Start()
