@@ -7,7 +7,11 @@ public class PlayerController : MonoBehaviour
 {
 
     public GameObject destinationObj;
+    public List<GameObject> brokenEggPieces = new List<GameObject>();
+    public GameObject normalEgg;
     public float thresholdDistanceForVisual = 0.5f;
+    public bool amDead = false;
+    public bool test = false;
 
     private NavMeshAgent agent;
     private LineRenderer lineR;
@@ -16,6 +20,28 @@ public class PlayerController : MonoBehaviour
     public void Explode()
     {
         Debug.Log("Player Dead");
+
+        if (!amDead)
+        {
+            GetComponent<CapsuleCollider>().enabled = false;
+
+            normalEgg.SetActive(false);
+
+            for (int i = 0; i < brokenEggPieces.Count - 1; i++)
+            {
+                brokenEggPieces[i].SetActive(true);
+                brokenEggPieces[i].transform.parent = null;
+                if (brokenEggPieces[i].GetComponent<Rigidbody>())
+                {
+                    Debug.Log("Applying Force...");
+                    brokenEggPieces[i].GetComponent<Rigidbody>().AddExplosionForce(5000.0f, transform.position, 50.0f);
+                }
+            }
+
+        }
+
+        amDead = true;
+
     }
 
     private void Start()
@@ -33,47 +59,60 @@ public class PlayerController : MonoBehaviour
 
         lineR.enabled = false;
         destMeshRender.enabled = false;
+
+        amDead = false;
+
     }
 
     private void Update()
     {
 
-        //Movement
-        if (Input.GetMouseButton(0))
+        if (test)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-            {
-                agent.SetDestination(hit.point);
-                destinationObj.transform.position = hit.point + (Vector3.up * 0.5f);
-            }
+            Explode();
         }
 
-        //If we are far enough away from desintation visual on
-        if ((thresholdDistanceForVisual <= agent.remainingDistance) || agent.remainingDistance == Mathf.Infinity)
+        if (!amDead)
         {
 
-            //Make dest visualble
-            destMeshRender.enabled = true;
-
-            lineR.positionCount = agent.path.corners.Length;
-
-            for (int i = 0; i < agent.path.corners.Length; i++)
+            //Movement
+            if (Input.GetMouseButton(0))
             {
-                lineR.SetPosition(i, agent.path.corners[i] + (Vector3.up * 0.45f));
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                {
+                    agent.SetDestination(hit.point);
+                    destinationObj.transform.position = hit.point + (Vector3.up * 0.5f);
+                }
             }
 
-            lineR.enabled = true;
+            //If we are far enough away from desintation visual on
+            if ((thresholdDistanceForVisual <= agent.remainingDistance) || agent.remainingDistance == Mathf.Infinity)
+            {
 
-        }
-        else
-        {
-            //Make dest gone
-            destMeshRender.enabled = false;
+                //Make dest visualble
+                destMeshRender.enabled = true;
 
-            lineR.enabled = false;
+                lineR.positionCount = agent.path.corners.Length;
+
+                for (int i = 0; i < agent.path.corners.Length; i++)
+                {
+                    lineR.SetPosition(i, agent.path.corners[i] + (Vector3.up * 0.45f));
+                }
+
+                lineR.enabled = true;
+
+            }
+            else
+            {
+                //Make dest gone
+                destMeshRender.enabled = false;
+
+                lineR.enabled = false;
+
+            }
 
         }
 
