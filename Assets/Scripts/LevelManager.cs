@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -24,6 +25,16 @@ public class LevelManager : MonoBehaviour
     private GameObject player;
     private PlayerController playerCtrl;
     private bool shownAd = false;
+
+    public void nextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void restartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
     public void objectiveCompleted()
     {
@@ -77,7 +88,7 @@ public class LevelManager : MonoBehaviour
             timer += Time.unscaledDeltaTime;
         }
         //Completed Level
-        else
+        else if (!playerCtrl.amDead)
         {
             endScreen();
             currentObjective.text = "You Win!";
@@ -90,7 +101,6 @@ public class LevelManager : MonoBehaviour
         //Lost Level
         if (playerCtrl.amDead)
         {
-            endScreen();
             currentObjective.text = "Game Over";
             //Show Ad
             if (!shownAd)
@@ -104,6 +114,7 @@ public class LevelManager : MonoBehaviour
         IEnumerator showAd(){
             yield return new WaitForSeconds(1.5f);
             AdTime.AdThyme(AdTime.ADID_LOSS);
+            endScreen();
         }
 
     }
