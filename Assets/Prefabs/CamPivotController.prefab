@@ -486,3 +486,4 @@ MonoBehaviour:
   - {fileID: 3821487816263989883}
   - {fileID: 3821487814297990848}
   - {fileID: 3821487816172822475}
+  moveLock: 0

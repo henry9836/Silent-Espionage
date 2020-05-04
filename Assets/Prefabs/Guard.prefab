@@ -784,10 +784,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   arriveThreshold: 1
-  seeDistance: 35
+  seeDistance: 45
   timeToLossPlayer: 10
   isLookingAtPlayer: 0
-  shootDistanceThreshold: 15
+  shootDistanceThreshold: 30
   shootPullOutTime: 0.5
   reloadTime: 2
   gunScaleTarget: {x: 0.01, y: 0.009999999, z: 0.009999999}
@@ -1302,6 +1302,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: coneOfView
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: ac9a034ea4fb62b43aba110804273994,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac9a034ea4fb62b43aba110804273994, type: 3}
