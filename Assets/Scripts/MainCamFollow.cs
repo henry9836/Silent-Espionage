@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class MainCamFollow : MonoBehaviour
@@ -48,8 +49,16 @@ public class MainCamFollow : MonoBehaviour
         {
             currentAngleElement = 0;
         }
-
-        oldTarget = target;
+        //If we have rotated fully
+        if ((rotTimer / timeToRot) >= 1.0f)
+        {
+            oldTarget = target;
+        }
+        //If we haven't rotated fully
+        else
+        {
+            oldTarget = cam.transform;
+        }
         target = angles[currentAngleElement];
 
         rotTimer = 0.0f;
@@ -63,7 +72,7 @@ public class MainCamFollow : MonoBehaviour
         transform.position = playerTransform.position + positionFromPlayer;
 
         //Rotate Camera Towards target
-        cam.transform.position = Vector3.Lerp(oldTarget.position, target.position, rotTimer/timeToRot);
+        cam.transform.position = Vector3.Lerp(oldTarget.position, target.position, rotTimer / timeToRot);
         cam.transform.rotation = Quaternion.Lerp(oldTarget.rotation, target.rotation, rotTimer / timeToRot);
 
         rotTimer += Time.unscaledDeltaTime;
