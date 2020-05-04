@@ -69,7 +69,6 @@ public class PlayerController : MonoBehaviour
         destMeshRender.enabled = false;
 
         amDead = false;
-
     }
 
     private void Update()
@@ -83,16 +82,21 @@ public class PlayerController : MonoBehaviour
         if (!amDead && !levelMan.levelOver)
         {
 
+            //Debug.Log($"{Input.mousePosition.x / Screen.width}:{Input.mousePosition.y / Screen.height}");
+
             //Movement
             if (Input.GetMouseButton(0))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
+                //Check that we are not rotating camera
+                if (((Input.mousePosition.x / Screen.width) < 0.92f) || ((Input.mousePosition.y / Screen.height) > 0.085f)) {
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
 
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-                {
-                    agent.SetDestination(hit.point);
-                    destinationObj.transform.position = hit.point + (Vector3.up * 0.1f);
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                    {
+                        agent.SetDestination(hit.point);
+                        destinationObj.transform.position = hit.point + (Vector3.up * 0.1f);
+                    }
                 }
             }
 

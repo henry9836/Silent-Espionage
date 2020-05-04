@@ -77,6 +77,7 @@ public class LevelManager : MonoBehaviour
         }
         //Start Ad Service
         AdTime.Initialize();
+
     }
 
     private void Update()

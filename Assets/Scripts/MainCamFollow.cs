@@ -8,6 +8,8 @@ public class MainCamFollow : MonoBehaviour
     public Transform playerTransform;
     public float timeToRot = 1.0f;
     public List<Transform> angles = new List<Transform>();
+    
+    public bool moveLock = false;
 
     private Vector3 positionFromPlayer = new Vector3(15.0f, 28.0f, -17.0f);
     private GameObject cam;
@@ -40,7 +42,7 @@ public class MainCamFollow : MonoBehaviour
 
     public void RotateCam()
     {
-
+        moveLock = true;
         currentAngleElement++;
         if (currentAngleElement >= angles.Count)
         {
@@ -65,6 +67,6 @@ public class MainCamFollow : MonoBehaviour
         cam.transform.rotation = Quaternion.Lerp(oldTarget.rotation, target.rotation, rotTimer / timeToRot);
 
         rotTimer += Time.unscaledDeltaTime;
-
     }
+
 }
