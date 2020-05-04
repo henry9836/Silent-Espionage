@@ -12,7 +12,9 @@ public class PlayerController : MonoBehaviour
     public float thresholdDistanceForVisual = 0.5f;
     public bool amDead = false;
     public bool test = false;
+    public AudioClip dieSound;
 
+    private AudioSource audioSrc;
     private NavMeshAgent agent;
     private LineRenderer lineR;
     private MeshRenderer destMeshRender;
@@ -39,6 +41,8 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
+            audioSrc.PlayOneShot(dieSound);
+
         }
 
         amDead = true;
@@ -50,6 +54,7 @@ public class PlayerController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         lineR = GetComponent<LineRenderer>();
+        audioSrc = GetComponent<AudioSource>();
         levelMan = GameObject.Find("LevelManager").GetComponent<LevelManager>();
 
         if (!destinationObj)
@@ -87,7 +92,7 @@ public class PlayerController : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                 {
                     agent.SetDestination(hit.point);
-                    destinationObj.transform.position = hit.point + (Vector3.up * 0.5f);
+                    destinationObj.transform.position = hit.point + (Vector3.up * 0.1f);
                 }
             }
 
