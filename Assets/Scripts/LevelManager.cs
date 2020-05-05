@@ -27,6 +27,8 @@ public class LevelManager : MonoBehaviour
     private PlayerController playerCtrl;
     private bool shownAd = false;
     private bool started = false;
+    private MillionairBaby iapController;
+    private bool adsEnabled = true;
 
     public void nextLevel()
     {
@@ -75,9 +77,19 @@ public class LevelManager : MonoBehaviour
         {
             bestTime.text = (Mathf.Round(bestTimeFloat * 100f) / 100f).ToString();
         }
-        //Start Ad Service
-        AdTime.Initialize();
+        //Check for purchase of removal of ads
+        adsEnabled = true;
 
+        if (PlayerPrefs.GetInt("noAdsPurchased") == 1)
+        {
+            adsEnabled = false;
+        }
+
+        if (adsEnabled)
+        {
+            //Start Ad Service
+            AdTime.Initialize();
+        }
     }
 
     private void Update()
@@ -131,7 +143,10 @@ public class LevelManager : MonoBehaviour
     IEnumerator showAd()
     {
         yield return new WaitForSeconds(1.5f);
-        AdTime.AdThyme(AdTime.ADID_LOSS);
+        if (adsEnabled)
+        {
+            AdTime.AdThyme(AdTime.ADID_LOSS);
+        }
         endScreen();
     }
 

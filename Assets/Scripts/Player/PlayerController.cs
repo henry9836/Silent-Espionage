@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 //Check that we are not rotating camera
-                if (((Input.mousePosition.x / Screen.width) < 0.92f) || ((Input.mousePosition.y / Screen.height) > 0.085f)) {
+                if (((Input.mousePosition.x / Screen.width) < 0.91f) || ((Input.mousePosition.y / Screen.height) > 0.1f)) {
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     RaycastHit hit;
 

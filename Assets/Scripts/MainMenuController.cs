@@ -6,19 +6,19 @@ using UnityEngine.SceneManagement;
 public class MainMenuController : MonoBehaviour
 {
 
-    MillionairBaby iap;
+    private MillionairBaby iap;
 
     private void Start()
     {
         //Start Ad Service
         AdTime.Initialize();
         //Start Money Machine
-        iap.Initialize();
+        iap = GetComponent<MillionairBaby>();
     }
 
     public void buyNoAds()
     {
-
+        iap.Purchase(iap.removeAds);
     }
 
     public void Play()

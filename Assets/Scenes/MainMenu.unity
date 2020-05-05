@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 38521267}
   - component: {fileID: 38521266}
   - component: {fileID: 38521265}
+  - component: {fileID: 38521268}
   m_Layer: 5
   m_Name: NoAd
   m_TagString: Untagged
@@ -250,6 +251,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 38521263}
   m_CullTransparentMesh: 0
+--- !u!114 &38521268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38521263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 900927142135ec54391db2f8a17eb709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IAPController: {fileID: 81866033}
 --- !u!1 &81866027
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,6 +277,7 @@ GameObject:
   - component: {fileID: 81866028}
   - component: {fileID: 81866031}
   - component: {fileID: 81866032}
+  - component: {fileID: 81866033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -378,6 +393,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac365ea9de506b2419b55d46d8c2786d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &81866033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81866027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99008f61987c30b41b89070d1ec2c34f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  removeAds: removeads
 --- !u!1 &477670446
 GameObject:
   m_ObjectHideFlags: 0
