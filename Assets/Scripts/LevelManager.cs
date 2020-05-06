@@ -29,10 +29,21 @@ public class LevelManager : MonoBehaviour
     private bool started = false;
     private MillionairBaby iapController;
     private bool adsEnabled = true;
+    private Text debugger;
+    private bool achivementOnce = false;
 
     public void nextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+        if (SceneManager.sceneCount - 1 > SceneManager.GetActiveScene().buildIndex)
+        {
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     public void restartLevel()
@@ -64,6 +75,11 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    void Debugger(string debugStr)
+    {
+        debugger.text += '\n' + debugStr;
+    }
+
     private void Start()
     {
         currentObjective.text = objectiveLines[objectivesCompleted];
@@ -72,6 +88,8 @@ public class LevelManager : MonoBehaviour
 
         //Load best time if there is one
         bestTimeFloat = PlayerPrefs.GetFloat("LEVELBESTTIME" + LevelID.ToString());
+
+        achivementOnce = false;
 
         if (bestTimeFloat > 0.0f)
         {
@@ -90,6 +108,12 @@ public class LevelManager : MonoBehaviour
             //Start Ad Service
             AdTime.Initialize();
         }
+
+        //DEBUGGER
+        debugger = GameObject.Find("DEBUG_OUTPUT").GetComponent<Text>();
+        Debugger("Best Time: " + bestTimeFloat.ToString());
+        Debugger("AD BOOL: " + PlayerPrefs.GetInt("noAdsPurchased").ToString());
+
     }
 
     private void Update()
@@ -111,6 +135,13 @@ public class LevelManager : MonoBehaviour
             {
                 endScreen();
                 currentObjective.text = "You Win!";
+
+                if (!achivementOnce)
+                {
+                    //Achievement Logic
+                    GetAchievement();
+                }
+
                 //If we have a new best time
                 if (bestTimeFloat > (Mathf.Round(timer * 100f) / 100f))
                 {
@@ -137,6 +168,42 @@ public class LevelManager : MonoBehaviour
             {
                 started = true;
             }
+        }
+    }
+
+    //Gives an achievement to user according to the level ID
+    void GetAchievement()
+    {
+        achivementOnce = true;
+        Debugger("Attempting to gain achievement...");
+        Debug.Log("Attempting to gain achievement...");
+        switch (LevelID)
+        {
+            //Level 1
+            case 1:
+                {
+                    Social.ReportProgress(SlientEspionageAchievements.achievement_completed_level_1, 100, (bool success) => {
+                        if (success)
+                        {
+                            Debugger("Achievement Successful Unlocked");
+                            Debug.Log("Achievement Successful Unlocked");
+                            Social.ShowAchievementsUI();
+                        }
+                        else
+                        {
+                            Debugger("Achievement Failed to unlock");
+                            Debug.LogWarning("Achievement Failed to unlock");
+                        }
+                    });
+                    break;
+                }
+
+            default:
+                {
+                    Debug.LogWarning($"No Achievement Logic Setup for Level ID [{LevelID}]");
+                    Debugger($"No Achievement Logic Setup for Level ID [{LevelID}]");
+                    break;
+                }
         }
     }
 

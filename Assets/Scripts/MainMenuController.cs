@@ -4,33 +4,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
 
     private MillionairBaby iap;
     private bool userLogginedIntoGoogle = false;
+    private Text debugger;
+
+    void Debugger(string debugStr)
+    {
+        debugger.text += '\n' + debugStr;
+    }
 
     private void Start()
     {
+        debugger = GameObject.Find("DEBUG_OUTPUT").GetComponent<Text>();
+
+        //Start Google Services
+        PlayGamesPlatform.DebugLogEnabled = true;
+        PlayGamesPlatform.Activate();
+        PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptAlways, OnAuthenticated);
+
+        //Connect to Google Services
+        //PlayGamesClientConfiguration.Builder builder = new PlayGamesClientConfiguration.Builder();
+        //PlayGamesPlatform.InitializeInstance(builder.Build());
+        //Debugger
+        //#if UNITY_EDITOR
+        //PlayGamesPlatform.DebugLogEnabled = true;
+        //#endif
+        //PlayGamesPlatform.Activate();
+
         //Start Ad Service
         AdTime.Initialize();
         //Start Money Machine
         iap = GetComponent<MillionairBaby>();
 
 
-        PlayGamesPlatform.DebugLogEnabled = true;
-        PlayGamesPlatform.Activate();
-        PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptOnce, OnAuthenticated);
-
-        ////Connect to Google Services
-        //PlayGamesClientConfiguration.Builder builder = new PlayGamesClientConfiguration.Builder();
-        //PlayGamesPlatform.InitializeInstance(builder.Build());
-        ////Debugger
-        ////#if UNITY_EDITOR
-        //PlayGamesPlatform.DebugLogEnabled = true;
-        ////#endif
-        //PlayGamesPlatform.Activate();
 
     }
 
@@ -40,9 +51,13 @@ public class MainMenuController : MonoBehaviour
         {
             case SignInStatus.Success:
                 Debug.Log("GPG sign in successful");
+                Debugger("GPG sign in successful");
+                userLogginedIntoGoogle = true;
                 break;
             default:
-                Debug.Log($"GPG sign in failed: {result}");
+                Debug.LogWarning($"GPG sign in failed: {result}");
+                Debugger($"GPG sign in failed: {result}");
+                userLogginedIntoGoogle = false;
                 break;
         }
     }
