@@ -10,6 +10,7 @@ public class MainMenuController : MonoBehaviour
 {
 
     public GameObject ResetUI;
+    public GameObject LevelSelectUI;
 
     private MillionairBaby iap;
     private bool userLogginedIntoGoogle = false;
@@ -128,7 +129,18 @@ public class MainMenuController : MonoBehaviour
     public void Play()
     {
         PlayerPrefs.Save();
-        SceneManager.LoadScene("Level1");
+        LevelSelectUI.SetActive(true);
+        //SceneManager.LoadScene("Level1");
+    }
+
+    public void closeLevelSelectUI()
+    {
+        LevelSelectUI.SetActive(false);
+    }
+
+    public void loadLevel(int levelID)
+    {
+        SceneManager.LoadScene("Level" + levelID.ToString());
     }
 
     public void Quit()
