@@ -62,7 +62,14 @@ public class MainCamFollow : MonoBehaviour
         target = angles[currentAngleElement];
 
         rotTimer = 0.0f;
-        
+
+        Social.ReportProgress(SlientEspionageAchievements.achievement_speeeeeeeeeeen, 100, (bool success) => {
+            if (success)
+            {
+                //Social.ShowAchievementsUI();
+            }
+        });
+
     }
 
     // Update is called once per frame

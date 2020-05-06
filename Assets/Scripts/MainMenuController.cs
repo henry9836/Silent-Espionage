@@ -9,9 +9,12 @@ using UnityEngine.UI;
 public class MainMenuController : MonoBehaviour
 {
 
+    public GameObject ResetUI;
+
     private MillionairBaby iap;
     private bool userLogginedIntoGoogle = false;
     private Text debugger;
+
 
     void Debugger(string debugStr)
     {
@@ -81,6 +84,42 @@ public class MainMenuController : MonoBehaviour
         //}
     }
 
+    public void resetSave(bool resetFlag)
+    {
+        //UI is shown
+        if (ResetUI.activeInHierarchy)
+        {
+            //Reset Save
+            if (resetFlag)
+            {
+                //Get ad playerpref
+                int adFlag = PlayerPrefs.GetInt("noAdsPurchased");
+
+                //Reset save data
+                Debugger("Resetting Player Prefs...");
+                PlayerPrefs.DeleteAll();
+
+                //Restore purchases
+                if (adFlag == 1)
+                {
+                    PlayerPrefs.SetInt("noAdsPurchased", adFlag);
+                }
+
+                ResetUI.SetActive(false);
+            }
+            //Close UI
+            else
+            {
+                ResetUI.SetActive(false);
+            }
+        }
+        //UI is not shown
+        else
+        {
+            ResetUI.SetActive(true);
+        }
+    }
+
     public void buyNoAds()
     {
         iap.Purchase(iap.removeAds);
@@ -88,6 +127,7 @@ public class MainMenuController : MonoBehaviour
 
     public void Play()
     {
+        PlayerPrefs.Save();
         SceneManager.LoadScene("Level1");
     }
 

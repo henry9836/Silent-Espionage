@@ -95,6 +95,10 @@ public class LevelManager : MonoBehaviour
         {
             bestTime.text = (Mathf.Round(bestTimeFloat * 100f) / 100f).ToString();
         }
+        else
+        {
+            bestTimeFloat = Mathf.Infinity;
+        }
         //Check for purchase of removal of ads
         adsEnabled = true;
 
@@ -136,16 +140,17 @@ public class LevelManager : MonoBehaviour
                 endScreen();
                 currentObjective.text = "You Win!";
 
-                if (!achivementOnce)
-                {
-                    //Achievement Logic
-                    GetAchievement();
-                }
-
                 //If we have a new best time
                 if (bestTimeFloat > (Mathf.Round(timer * 100f) / 100f))
                 {
                     PlayerPrefs.SetFloat("LEVELBESTTIME" + LevelID.ToString(), (Mathf.Round(timer * 100f) / 100f));
+                }
+
+                if (!achivementOnce)
+                {
+                    PlayerPrefs.Save();
+                    //Achievement Logic
+                    GetAchievement();
                 }
             }
 
@@ -156,6 +161,7 @@ public class LevelManager : MonoBehaviour
                 //Show Ad
                 if (!shownAd)
                 {
+                    PlayerPrefs.Save();
                     StartCoroutine(showAd());
                     shownAd = true;
                 }
@@ -195,6 +201,61 @@ public class LevelManager : MonoBehaviour
                             Debug.LogWarning("Achievement Failed to unlock");
                         }
                     });
+                    break;
+                }
+
+            case 2:
+                {
+                    Social.ReportProgress(SlientEspionageAchievements.achievement_completed_level_2, 100, (bool success) => {
+                        if (success)
+                        {
+                            Debugger("Achievement Successful Unlocked");
+                            Debug.Log("Achievement Successful Unlocked");
+                            Social.ShowAchievementsUI();
+                        }
+                        else
+                        {
+                            Debugger("Achievement Failed to unlock");
+                            Debug.LogWarning("Achievement Failed to unlock");
+                        }
+                    });
+                    break;
+                }
+
+            case 3:
+                {
+                    Social.ReportProgress(SlientEspionageAchievements.achievement_completed_level_3, 100, (bool success) => {
+                        if (success)
+                        {
+                            Debugger("Achievement Successful Unlocked");
+                            Debug.Log("Achievement Successful Unlocked");
+                            Social.ShowAchievementsUI();
+                        }
+                        else
+                        {
+                            Debugger("Achievement Failed to unlock");
+                            Debug.LogWarning("Achievement Failed to unlock");
+                        }
+                    });
+
+                    //Check for 120 seconds or less completion time on all levels
+                    if ((PlayerPrefs.GetFloat("LEVELBESTTIME1") <= 120.0f) && (PlayerPrefs.GetFloat("LEVELBESTTIME2") <= 120.0f) && (PlayerPrefs.GetFloat("LEVELBESTTIME3") <= 120.0f))
+                    {
+                        Social.ReportProgress(SlientEspionageAchievements.achievement_master_saboteur, 100, (bool success) => {
+                            if (success)
+                            {
+                                Debugger("Achievement Successful Unlocked");
+                                Debug.Log("Achievement Successful Unlocked");
+                                Social.ShowAchievementsUI();
+                            }
+                            else
+                            {
+                                Debugger("Achievement Failed to unlock");
+                                Debug.LogWarning("Achievement Failed to unlock");
+                            }
+                        });
+                    }
+
                     break;
                 }
 

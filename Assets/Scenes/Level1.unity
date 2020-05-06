@@ -1549,35 +1549,10 @@ PrefabInstance:
       propertyPath: destinationObj
       value: 
       objectReference: {fileID: 883275552}
-    - target: {fileID: 1961630858857196813, guid: 9fa7c0c65954ca246ab60ad089e8807e,
-        type: 3}
-      propertyPath: SizeModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1961630858857196813, guid: 9fa7c0c65954ca246ab60ad089e8807e,
-        type: 3}
-      propertyPath: SizeModule.separateAxes
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1961630858857196813, guid: 9fa7c0c65954ca246ab60ad089e8807e,
-        type: 3}
-      propertyPath: ColorBySpeedModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1961630858857196813, guid: 9fa7c0c65954ca246ab60ad089e8807e,
-        type: 3}
-      propertyPath: ColorModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3217182949202527531, guid: 9fa7c0c65954ca246ab60ad089e8807e,
         type: 3}
       propertyPath: m_Name
       value: PlayerObject
-      objectReference: {fileID: 0}
-    - target: {fileID: 4248660691537586969, guid: 9fa7c0c65954ca246ab60ad089e8807e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fa7c0c65954ca246ab60ad089e8807e, type: 3}
