@@ -130,7 +130,7 @@ public class GuardController : MonoBehaviour
             RaycastHit hit;
 
             // Does the ray intersect any objects excluding the player layer
-            Vector3 dir = ((player.transform.position + (Vector3.up * 0.5f)) - eyes.position).normalized;
+            Vector3 dir = ((player.transform.position + (Vector3.up * 1.0f)) - eyes.position).normalized;
 
             //is the player in front of the guard?
             float angleDot = Vector3.Dot(dir, transform.forward);
