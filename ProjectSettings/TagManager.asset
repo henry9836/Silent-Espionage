@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Guard
   - Bullet
+  - Death
   layers:
   - Default
   - TransparentFX

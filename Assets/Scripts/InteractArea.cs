@@ -12,7 +12,9 @@ public class InteractArea : MonoBehaviour
     public float progress = 0.0f;
     [HideInInspector]
     public bool completed = false;
+    public bool multiUse = false;
 
+    private bool multiUseOnceTrigger = true;
     private bool playerInArea;
     private float playerTimer = 0.0f;
     private Image progressUI;
@@ -24,29 +26,31 @@ public class InteractArea : MonoBehaviour
 
     void Update()
     {
-        if (!completed)
+        if ((!completed || multiUse) && multiUseOnceTrigger)
         {
             if (playerInArea)
             {
                 playerTimer += Time.unscaledDeltaTime;
+                playerTimer = Mathf.Clamp(playerTimer, 0.0f, 1.0f);
+
+                progress = playerTimer / timeToComplete;
+
+                progressUI.fillAmount = progress;
+
+                if (progress >= 1.0f && multiUseOnceTrigger)
+                {
+                    onComplete.Invoke();
+                    progressUI.fillAmount = 0.0f;
+                    completed = true;
+                    multiUseOnceTrigger = false;
+                }
             }
             else
             {
                 playerTimer -= Time.unscaledDeltaTime;
             }
 
-            playerTimer = Mathf.Clamp(playerTimer, 0.0f, 1.0f);
 
-            progress = playerTimer / timeToComplete;
-
-            progressUI.fillAmount = progress;
-
-            if (progress >= 1.0f)
-            {
-                onComplete.Invoke();
-                progressUI.fillAmount = 0.0f;
-                completed = true;
-            }
 
         }
     }
@@ -64,6 +68,7 @@ public class InteractArea : MonoBehaviour
         if (other.tag == "Player")
         {
             playerInArea = false;
+            multiUseOnceTrigger = true;
         }
     }
 
