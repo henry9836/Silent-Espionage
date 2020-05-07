@@ -30,54 +30,59 @@ public class PatrolController : StateMachineBehaviour
             guardCtrl = guard.GetComponent<GuardController>();
         }
 
-        if (patrolPoints.Count < 1)
+        if (!guardCtrl.amDead)
         {
-            patrolPoints = guardCtrl.guardPath;
-        }
-
-        if (!agent)
-        {
-            agent = guard.GetComponent<NavMeshAgent>();
-        }
-
-        thresholdArriveDistance = guardCtrl.arriveThreshold;
-
-        //go to the nearest guard point
-
-        float shortest = Mathf.Infinity;
-
-        for (int i = 0; i < patrolPoints.Count; i++)
-        {
-            if (Vector3.Distance(patrolPoints[i].position, guard.transform.position) < shortest)
+            if (patrolPoints.Count < 1)
             {
-                targetGuardPoint = patrolPoints[i];
-                shortest = Vector3.Distance(patrolPoints[i].position, guard.transform.position);
-                targetTransformelement = i;
+                patrolPoints = guardCtrl.guardPath;
             }
+
+            if (!agent)
+            {
+                agent = guard.GetComponent<NavMeshAgent>();
+            }
+
+            thresholdArriveDistance = guardCtrl.arriveThreshold;
+
+            //go to the nearest guard point
+
+            float shortest = Mathf.Infinity;
+
+            for (int i = 0; i < patrolPoints.Count; i++)
+            {
+                if (Vector3.Distance(patrolPoints[i].position, guard.transform.position) < shortest)
+                {
+                    targetGuardPoint = patrolPoints[i];
+                    shortest = Vector3.Distance(patrolPoints[i].position, guard.transform.position);
+                    targetTransformelement = i;
+                }
+            }
+
+            //Set destination
+            agent.SetDestination(targetGuardPoint.position);
         }
-
-        //Set destination
-        agent.SetDestination(targetGuardPoint.position);
-
     }
 
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //When we arrive at a position
-        if (agent.remainingDistance <= thresholdArriveDistance)
+        if (!guardCtrl.amDead)
         {
-            //set next target
-            targetTransformelement++;
-            if (targetTransformelement > patrolPoints.Count - 1)
+            //When we arrive at a position
+            if (agent.remainingDistance <= thresholdArriveDistance)
             {
-                targetTransformelement = 0;
+                //set next target
+                targetTransformelement++;
+                if (targetTransformelement > patrolPoints.Count - 1)
+                {
+                    targetTransformelement = 0;
+                }
+
+                targetGuardPoint = patrolPoints[targetTransformelement];
+
+                //Go to new target
+                agent.SetDestination(targetGuardPoint.position);
             }
-
-            targetGuardPoint = patrolPoints[targetTransformelement];
-
-            //Go to new target
-            agent.SetDestination(targetGuardPoint.position);
         }
     }
 

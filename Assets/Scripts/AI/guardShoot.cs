@@ -10,15 +10,19 @@ public class guardShoot : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        
         if (!guardCtrl)
         {
             guardCtrl = animator.gameObject.GetComponent<GuardController>();
         }
 
-        if (guardCtrl.magCurrentSize > 0) {
-            guardCtrl.ShootPlayer();
-            Debug.Log("Shoot");
+        if (!guardCtrl.amDead)
+        {
+            if (guardCtrl.magCurrentSize > 0)
+            {
+                guardCtrl.ShootPlayer();
+                Debug.Log("Shoot");
+            }
         }
 
         animator.SetTrigger("ShotPlayer");

@@ -30,6 +30,11 @@ public class BulletController : MonoBehaviour
             other.GetComponent<PlayerController>().Explode();
         }
 
+        else if (other.tag == "Guard")
+        {
+            other.GetComponent<GuardController>().Explode();
+        }
+
         Debug.Log($"I hit {other.gameObject.name}");
 
         Destroy(gameObject);

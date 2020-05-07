@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
 
         if (!amDead)
         {
+            agent.ResetPath();
+
             GetComponent<CapsuleCollider>().enabled = false;
 
             normalEgg.SetActive(false);
