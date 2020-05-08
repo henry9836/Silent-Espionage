@@ -130,7 +130,6 @@ public class MainMenuController : MonoBehaviour
     {
         PlayerPrefs.Save();
         LevelSelectUI.SetActive(true);
-        //SceneManager.LoadScene("Level1");
     }
 
     public void closeLevelSelectUI()

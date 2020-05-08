@@ -182,7 +182,6 @@ public class LevelManager : MonoBehaviour
     {
         achivementOnce = true;
         Debugger("Attempting to gain achievement...");
-        Debug.Log("Attempting to gain achievement...");
         switch (LevelID)
         {
             //Level 1
@@ -192,13 +191,11 @@ public class LevelManager : MonoBehaviour
                         if (success)
                         {
                             Debugger("Achievement Successful Unlocked");
-                            Debug.Log("Achievement Successful Unlocked");
                             Social.ShowAchievementsUI();
                         }
                         else
                         {
                             Debugger("Achievement Failed to unlock");
-                            Debug.LogWarning("Achievement Failed to unlock");
                         }
                     });
                     break;
@@ -210,13 +207,11 @@ public class LevelManager : MonoBehaviour
                         if (success)
                         {
                             Debugger("Achievement Successful Unlocked");
-                            Debug.Log("Achievement Successful Unlocked");
                             Social.ShowAchievementsUI();
                         }
                         else
                         {
                             Debugger("Achievement Failed to unlock");
-                            Debug.LogWarning("Achievement Failed to unlock");
                         }
                     });
                     break;
@@ -228,30 +223,26 @@ public class LevelManager : MonoBehaviour
                         if (success)
                         {
                             Debugger("Achievement Successful Unlocked");
-                            Debug.Log("Achievement Successful Unlocked");
                             Social.ShowAchievementsUI();
                         }
                         else
                         {
                             Debugger("Achievement Failed to unlock");
-                            Debug.LogWarning("Achievement Failed to unlock");
                         }
                     });
 
-                    //Check for 120 seconds or less completion time on all levels
-                    if ((PlayerPrefs.GetFloat("LEVELBESTTIME1") <= 120.0f) && (PlayerPrefs.GetFloat("LEVELBESTTIME2") <= 120.0f) && (PlayerPrefs.GetFloat("LEVELBESTTIME3") <= 120.0f))
+                    //Check for 150 seconds or less completion time on all levels
+                    if ((PlayerPrefs.GetFloat("LEVELBESTTIME1") <= 150.0f) && (PlayerPrefs.GetFloat("LEVELBESTTIME2") <= 150.0f) && (PlayerPrefs.GetFloat("LEVELBESTTIME3") <= 150.0f))
                     {
                         Social.ReportProgress(SlientEspionageAchievements.achievement_master_saboteur, 100, (bool success) => {
                             if (success)
                             {
                                 Debugger("Achievement Successful Unlocked");
-                                Debug.Log("Achievement Successful Unlocked");
                                 Social.ShowAchievementsUI();
                             }
                             else
                             {
                                 Debugger("Achievement Failed to unlock");
-                                Debug.LogWarning("Achievement Failed to unlock");
                             }
                         });
                     }

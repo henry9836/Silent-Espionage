@@ -134,7 +134,7 @@ public class GuardController : MonoBehaviour
 
             //is the player in front of the guard?
             float angleDot = Vector3.Dot(dir, transform.forward);
-            isLookingAtPlayer = angleDot > -0.1f;
+            isLookingAtPlayer = angleDot >= 0.0f;
 
             if (Physics.Raycast(eyes.position, dir, out hit, seeDistance))
             {
