@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public void Explode()
     {
-        Debug.Log("Player Dead");
+        //Debug.Log("Player Dead");
 
         if (!amDead)
         {
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
                 brokenEggPieces[i].transform.parent = null;
                 if (brokenEggPieces[i].GetComponent<Rigidbody>())
                 {
-                    Debug.Log("Applying Force...");
+                    //Debug.Log("Applying Force...");
                     brokenEggPieces[i].GetComponent<Rigidbody>().AddExplosionForce(5000.0f, transform.position, 50.0f);
                 }
             }
@@ -84,13 +84,13 @@ public class PlayerController : MonoBehaviour
         if (!amDead && !levelMan.levelOver)
         {
 
-            //Debug.Log($"{Input.mousePosition.x / Screen.width}:{Input.mousePosition.y / Screen.height}");
+            ////Debug.Log($"{Input.mousePosition.x / Screen.width}:{Input.mousePosition.y / Screen.height}");
 
             //Movement
             if (Input.GetMouseButton(0))
             {
                 //Check that we are not rotating camera
-                if (((Input.mousePosition.x / Screen.width) < 0.91f) || ((Input.mousePosition.y / Screen.height) > 0.1f)) {
+                if (((Input.mousePosition.x / Screen.width) < 0.9f) || ((Input.mousePosition.y / Screen.height) > 0.15f)) {
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     RaycastHit hit;
 

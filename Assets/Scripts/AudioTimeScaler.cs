@@ -12,7 +12,7 @@ public class AudioTimeScaler : MonoBehaviour
         audioSrc = GetComponent<AudioSource>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         audioSrc.pitch = Time.timeScale;
     }

@@ -21,7 +21,7 @@ public class guardShoot : StateMachineBehaviour
             if (guardCtrl.magCurrentSize > 0)
             {
                 guardCtrl.ShootPlayer();
-                Debug.Log("Shoot");
+                //Debug.Log("Shoot");
             }
         }
 

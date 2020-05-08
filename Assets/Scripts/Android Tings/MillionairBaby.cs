@@ -23,7 +23,7 @@ public class MillionairBaby : MonoBehaviour, IStoreListener
         if (!IsInitialized())
         {
 
-            Debug.Log("Initialising IAP...");
+            //Debug.Log("Initialising IAP...");
 
             var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
@@ -40,7 +40,7 @@ public class MillionairBaby : MonoBehaviour, IStoreListener
             Product product = storeCtrl.products.WithID(ID);
             if (product != null && product.availableToPurchase)
             {
-                Debug.Log("Purchasing Product...");
+                //Debug.Log("Purchasing Product...");
                 storeCtrl.InitiatePurchase(ID);
             }
             else
@@ -59,7 +59,7 @@ public class MillionairBaby : MonoBehaviour, IStoreListener
     public void OnInitializeFailed(InitializationFailureReason error)
     {
         // Purchasing set-up has not succeeded. Check error for reason. Consider sharing this reason with the user.
-        Debug.Log("IAP OnInitializeFailed InitializationFailureReason:" + error);
+        //Debug.Log("IAP OnInitializeFailed InitializationFailureReason:" + error);
     }
 
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs e)
@@ -70,7 +70,7 @@ public class MillionairBaby : MonoBehaviour, IStoreListener
             case "removeads":
                 {
                     PlayerPrefs.SetInt("noAdsPurchased", 1);
-                    Debug.Log("Brought remove ads");
+                    //Debug.Log("Brought remove ads");
                     break;
                 }
 
@@ -92,7 +92,7 @@ public class MillionairBaby : MonoBehaviour, IStoreListener
     public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
     {
         // Purchasing has succeeded initializing. Collect our Purchasing references.
-        Debug.Log("OnInitialized: PASS");
+        //Debug.Log("OnInitialized: PASS");
 
         storeCtrl = controller;
         storeExtProvider = extensions;

@@ -34,7 +34,7 @@ public class MainCamFollow : MonoBehaviour
 
         cam = transform.GetChild(0).gameObject;
 
-        Debug.Log(positionFromPlayer);
+        //Debug.Log(positionFromPlayer);
 
         target = angles[currentAngleElement];
         oldTarget = target;

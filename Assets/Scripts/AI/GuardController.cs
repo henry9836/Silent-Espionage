@@ -42,6 +42,8 @@ public class GuardController : MonoBehaviour
     private AudioSource audioSrc;
     private NavMeshAgent agent;
     private LineRenderer lRender;
+    private LevelManager levelManager;
+    private UIFloat bonusUI;
 
     public void Reload()
     {
@@ -50,7 +52,6 @@ public class GuardController : MonoBehaviour
 
     public void Explode()
     {
-        Debug.Log("AI Dead");
 
         if (!amDead)
         {
@@ -67,17 +68,25 @@ public class GuardController : MonoBehaviour
                 brokenEggPieces[i].transform.parent = null;
                 if (brokenEggPieces[i].GetComponent<Rigidbody>())
                 {
-                    Debug.Log("Applying Force...");
                     brokenEggPieces[i].GetComponent<Rigidbody>().AddExplosionForce(5000.0f, transform.position, 50.0f);
                 }
             }
 
             audioSrc.PlayOneShot(dieSound);
 
+            //Reward player for kill
+            if (levelManager.timer > 10.0f)
+            {
+                levelManager.timer -= 10.0f;
+            }
+            else
+            {
+                levelManager.timer = 0.0f;
+            }
         }
-
         amDead = true;
-
+        bonusUI.Reset();
+        StartCoroutine(killMe());
     }
 
     public void ShootPlayer()
@@ -93,6 +102,7 @@ public class GuardController : MonoBehaviour
 
             audioSrc.PlayOneShot(shootSound);
             magCurrentSize--;
+
         }
     }
 
@@ -113,6 +123,8 @@ public class GuardController : MonoBehaviour
         audioSrc = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
         lRender = GetComponent<LineRenderer>();
+        levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+        bonusUI = GameObject.Find("Bonus").GetComponent<UIFloat>();
     }
 
     private void Update()
@@ -125,7 +137,7 @@ public class GuardController : MonoBehaviour
 
         if (!amDead)
         {
-            Debug.DrawRay(eyes.position, (player.transform.position - eyes.position).normalized, Color.red);
+            //Debug.DrawRay(eyes.position, (player.transform.position - eyes.position).normalized, Color.red);
 
             RaycastHit hit;
 
@@ -150,7 +162,7 @@ public class GuardController : MonoBehaviour
                         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, agent.angularSpeed * Time.deltaTime);
                     }
 
-                    Debug.DrawRay(eyes.position, dir * seeDistance, Color.yellow);
+                    //Debug.DrawRay(eyes.position, dir * seeDistance, Color.yellow);
                     animator.SetBool("CanSeePlayer", true);
 
                     //Aim gun at player
@@ -173,20 +185,20 @@ public class GuardController : MonoBehaviour
                     }
 
 
-                    Debug.DrawRay(eyes.position, dir * hit.distance, Color.red);
+                    //Debug.DrawRay(eyes.position, dir * hit.distance, Color.red);
                     animator.SetBool("CanSeePlayer", false);
                 }
             }
             else
             {
-                Debug.DrawRay(eyes.position, dir * seeDistance, Color.red);
+                //Debug.DrawRay(eyes.position, dir * seeDistance, Color.red);
                 lRender.SetPosition(1, gun.transform.position + (gun.transform.forward * seeDistance));
                 animator.SetBool("CanSeePlayer", false);
             }
 
             //Draw Vision
-            Debug.DrawRay(eyes.position, transform.forward * seeDistance, Color.cyan);
-            Debug.DrawRay(eyes.position, transform.forward * shootDistanceThreshold, Color.magenta);
+            //Debug.DrawRay(eyes.position, transform.forward * seeDistance, Color.cyan);
+            //Debug.DrawRay(eyes.position, transform.forward * shootDistanceThreshold, Color.magenta);
 
             //If the gun is out draw laser
             if (gun.transform.localScale.x > 0.0f)
@@ -218,6 +230,12 @@ public class GuardController : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         muzzleLight.enabled = false;
         muzzleObj.SetActive(false);
+    }
+
+    IEnumerator killMe()
+    {
+        yield return new WaitForSecondsRealtime(7.0f);
+        Destroy(gameObject);
     }
 
 }

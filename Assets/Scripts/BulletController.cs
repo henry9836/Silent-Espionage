@@ -35,7 +35,7 @@ public class BulletController : MonoBehaviour
             other.GetComponent<GuardController>().Explode();
         }
 
-        Debug.Log($"I hit {other.gameObject.name}");
+        //Debug.Log($"I hit {other.gameObject.name}");
 
         Destroy(gameObject);
     }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
+using System;
 
 public class LevelManager : MonoBehaviour
 {
@@ -17,11 +18,12 @@ public class LevelManager : MonoBehaviour
     public GameObject continueUI;
     [HideInInspector]
     public bool levelOver = false;
+    [HideInInspector]
+    public float timer = 0.0f;
 
-    
+
     private int objectivesCompleted = 0;
     private string timerString;
-    private float timer = 0.0f;
     private float bestTimeFloat = 0.0f;
     private GameObject player;
     private PlayerController playerCtrl;
@@ -64,7 +66,7 @@ public class LevelManager : MonoBehaviour
 
         if (playerCtrl.amDead)
         {
-            if (bestTimeFloat != 0.0f)
+            if (bestTimeFloat != Mathf.Infinity)
             {
                 continueUI.SetActive(true);
             }
@@ -80,6 +82,33 @@ public class LevelManager : MonoBehaviour
         debugger.text += '\n' + debugStr;
     }
 
+    void SubmitTime()
+    {
+        Debugger("Submitting New Score Online...");
+        switch (LevelID)
+        {
+
+            case 1:
+                {
+                    Social.ReportScore((long)(timer * 1000.0f), SlientEspionageAchievements.leaderboard_best_time_level_1, (bool success) =>
+                    {
+                        if (success)
+                        {
+                            Debugger("Leaderboard Submitted");
+                        }
+                        else
+                        {
+                            Debugger("Leaderboard Failed");
+                        }
+                    });
+                    break;
+                }
+
+            default:
+                break;
+        }
+    }
+
     private void Start()
     {
         currentObjective.text = objectiveLines[objectivesCompleted];
@@ -93,7 +122,8 @@ public class LevelManager : MonoBehaviour
 
         if (bestTimeFloat > 0.0f)
         {
-            bestTime.text = (Mathf.Round(bestTimeFloat * 100f) / 100f).ToString();
+            bestTime.text = FloatToTime.convertFloatToTime(bestTimeFloat);
+            //bestTime.text = (Mathf.Round(bestTimeFloat * 100f) / 100f).ToString();
         }
         else
         {
@@ -125,9 +155,7 @@ public class LevelManager : MonoBehaviour
 
         if (started)
         {
-
-            //timerString = (Mathf.Round(timer * 100f) / 100f).ToString();
-            currentTime.text = timer.ToString("F2");
+            currentTime.text = FloatToTime.convertFloatToTime(timer);
             //During level
             if (objectivesCompleted < objectiveLines.Count && !playerCtrl.amDead)
             {
@@ -144,6 +172,11 @@ public class LevelManager : MonoBehaviour
                 if (bestTimeFloat > (Mathf.Round(timer * 100f) / 100f))
                 {
                     PlayerPrefs.SetFloat("LEVELBESTTIME" + LevelID.ToString(), (Mathf.Round(timer * 100f) / 100f));
+                    if (!achivementOnce)
+                    {
+                        //Submit to leaderboard
+                        SubmitTime();
+                    }
                 }
 
                 if (!achivementOnce)
@@ -191,7 +224,6 @@ public class LevelManager : MonoBehaviour
                         if (success)
                         {
                             Debugger("Achievement Successful Unlocked");
-                            Social.ShowAchievementsUI();
                         }
                         else
                         {
@@ -207,7 +239,6 @@ public class LevelManager : MonoBehaviour
                         if (success)
                         {
                             Debugger("Achievement Successful Unlocked");
-                            Social.ShowAchievementsUI();
                         }
                         else
                         {
@@ -223,7 +254,6 @@ public class LevelManager : MonoBehaviour
                         if (success)
                         {
                             Debugger("Achievement Successful Unlocked");
-                            Social.ShowAchievementsUI();
                         }
                         else
                         {
@@ -231,21 +261,7 @@ public class LevelManager : MonoBehaviour
                         }
                     });
 
-                    //Check for 150 seconds or less completion time on all levels
-                    if ((PlayerPrefs.GetFloat("LEVELBESTTIME1") <= 150.0f) && (PlayerPrefs.GetFloat("LEVELBESTTIME2") <= 150.0f) && (PlayerPrefs.GetFloat("LEVELBESTTIME3") <= 150.0f))
-                    {
-                        Social.ReportProgress(SlientEspionageAchievements.achievement_master_saboteur, 100, (bool success) => {
-                            if (success)
-                            {
-                                Debugger("Achievement Successful Unlocked");
-                                Social.ShowAchievementsUI();
-                            }
-                            else
-                            {
-                                Debugger("Achievement Failed to unlock");
-                            }
-                        });
-                    }
+                    
 
                     break;
                 }
@@ -257,6 +273,27 @@ public class LevelManager : MonoBehaviour
                     break;
                 }
         }
+
+        //Check for 150 seconds or less completion time on all levels
+        if (PlayerPrefs.HasKey("LEVELBESTTIME1") && PlayerPrefs.HasKey("LEVELBESTTIME2") && PlayerPrefs.HasKey("LEVELBESTTIME3"))
+        {
+            if ((PlayerPrefs.GetFloat("LEVELBESTTIME1") <= 150.0f) && (PlayerPrefs.GetFloat("LEVELBESTTIME2") <= 150.0f) && (PlayerPrefs.GetFloat("LEVELBESTTIME3") <= 150.0f))
+            {
+                Social.ReportProgress(SlientEspionageAchievements.achievement_master_saboteur, 100, (bool success) =>
+                {
+                    if (success)
+                    {
+                        Debugger("Achievement Successful Unlocked");
+                        Social.ShowAchievementsUI();
+                    }
+                    else
+                    {
+                        Debugger("Achievement Failed to unlock");
+                    }
+                });
+            }
+        }
+
     }
 
     IEnumerator showAd()

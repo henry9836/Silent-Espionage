@@ -69,6 +69,7 @@ public class InteractArea : MonoBehaviour
         {
             playerInArea = false;
             multiUseOnceTrigger = true;
+            progressUI.fillAmount = 0.0f;
         }
     }
 
