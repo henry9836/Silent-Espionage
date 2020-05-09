@@ -68,20 +68,23 @@ public class PatrolController : StateMachineBehaviour
     {
         if (!guardCtrl.amDead)
         {
-            //When we arrive at a position
-            if (agent.remainingDistance <= thresholdArriveDistance)
+            if (patrolPoints.Count > 0)
             {
-                //set next target
-                targetTransformelement++;
-                if (targetTransformelement > patrolPoints.Count - 1)
+                //When we arrive at a position
+                if (agent.remainingDistance <= thresholdArriveDistance)
                 {
-                    targetTransformelement = 0;
+                    //set next target
+                    targetTransformelement++;
+                    if (targetTransformelement > patrolPoints.Count - 1)
+                    {
+                        targetTransformelement = 0;
+                    }
+
+                    targetGuardPoint = patrolPoints[targetTransformelement];
+
+                    //Go to new target
+                    agent.SetDestination(targetGuardPoint.position);
                 }
-
-                targetGuardPoint = patrolPoints[targetTransformelement];
-
-                //Go to new target
-                agent.SetDestination(targetGuardPoint.position);
             }
         }
     }

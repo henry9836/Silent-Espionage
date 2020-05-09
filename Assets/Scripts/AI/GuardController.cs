@@ -235,10 +235,10 @@ public class GuardController : MonoBehaviour
     IEnumerator killMe()
     {
         yield return new WaitForSecondsRealtime(7.0f);
-        for (int i = 0; i < brokenEggPieces.Count; i++)
-        {
-            Destroy(brokenEggPieces[i]);
-        }
+        //for (int i = 0; i < brokenEggPieces.Count; i++)
+        //{
+        //    Destroy(brokenEggPieces[i]);
+        //}
         Destroy(gameObject);
     }
 

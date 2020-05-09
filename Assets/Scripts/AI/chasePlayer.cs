@@ -96,7 +96,12 @@ public class chasePlayer : StateMachineBehaviour
 
             timeOutTimer -= Time.deltaTime;
 
-            agent.SetDestination(player.transform.position);
+            //Only chase if we are on a nav mesh
+            if (agent.isOnNavMesh)
+            {
+                agent.SetDestination(player.transform.position);
+            }
+
             lastSeenPlayerPos = player.transform.position;
 
             if (player.GetComponent<NavMeshAgent>().velocity.magnitude > 0)
@@ -117,8 +122,12 @@ public class chasePlayer : StateMachineBehaviour
 
             timeOutTimer += Time.deltaTime;
 
-            //Go to last seen Pos
-            agent.SetDestination(lastSeenPlayerPos);
+            //Only chase if we are on a nav mesh
+            if (agent.isOnNavMesh)
+            {
+                //Go to last seen Pos
+                agent.SetDestination(lastSeenPlayerPos);
+            }
 
             //When we go to last position look at other positions around
             if (agent.velocity.magnitude < 0.1f)
@@ -141,9 +150,13 @@ public class chasePlayer : StateMachineBehaviour
             {
                 gunTimer = 0.0f;
             }
-            
-            //stop chasing
-            agent.ResetPath();
+
+            //Only chase if we are on a nav mesh
+            if (agent.isOnNavMesh)
+            {
+                //stop chasing
+                agent.ResetPath();
+            }
 
             //Get the gun out
             gunTimer += Time.deltaTime;

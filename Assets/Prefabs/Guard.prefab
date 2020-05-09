@@ -1543,6 +1543,7 @@ MonoBehaviour:
   - {fileID: 7582045562776257713}
   - {fileID: 3674463732438234073}
   - {fileID: 1998307747698632079}
+  - {fileID: 8018369572512545296}
   dieSound: {fileID: 8300000, guid: 04656f6cf2c4fdf4d90f34ee899cf1ce, type: 3}
   test: 0
 --- !u!82 &1152622864
@@ -1931,6 +1932,12 @@ PrefabInstance:
 --- !u!4 &8018369572512545309 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6730291889238878030, guid: 20b0130f4509c8641a9d78eb64a6c505,
+    type: 3}
+  m_PrefabInstance: {fileID: 3611944574302264659}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8018369572512545296 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6730291889238878019, guid: 20b0130f4509c8641a9d78eb64a6c505,
     type: 3}
   m_PrefabInstance: {fileID: 3611944574302264659}
   m_PrefabAsset: {fileID: 0}
