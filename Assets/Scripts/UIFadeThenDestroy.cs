@@ -19,6 +19,7 @@ public class UIFadeThenDestroy : MonoBehaviour
         startColor = text.color;
         endColor = new Color(startColor.r, startColor.g, startColor.b, 0.0f);
         text.color = endColor;
+        timer = timeToFade;
     }
 
     void Update()

@@ -54,7 +54,12 @@ public class MillionairBaby : MonoBehaviour, IStoreListener
         }
     }
 
-    
+    public bool checkPurchase(string ID)
+    {
+        Product product = storeCtrl.products.WithID(ID);
+
+        return product.hasReceipt;
+    }
 
     public void OnInitializeFailed(InitializationFailureReason error)
     {
@@ -64,7 +69,7 @@ public class MillionairBaby : MonoBehaviour, IStoreListener
 
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs e)
     {
-
+        
         switch (e.purchasedProduct.definition.id.ToString())
         {
             case "removeads":
@@ -96,6 +101,7 @@ public class MillionairBaby : MonoBehaviour, IStoreListener
 
         storeCtrl = controller;
         storeExtProvider = extensions;
+
     }
 
     public bool IsInitialized()

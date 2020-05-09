@@ -16,6 +16,7 @@ public class LevelManager : MonoBehaviour
     public int LevelID = -1;
     public GameObject restartUI;
     public GameObject continueUI;
+    public GameObject twitterUI;
     [HideInInspector]
     public bool levelOver = false;
     [HideInInspector]
@@ -33,6 +34,25 @@ public class LevelManager : MonoBehaviour
     private bool adsEnabled = true;
     private Text debugger;
     private bool achivementOnce = false;
+
+    public void shareOnTwitter()
+    {
+        //Update best time if it is invalid
+        if (bestTimeFloat == Mathf.Infinity)
+        {
+            bestTimeFloat = timer;
+        }
+
+        //Build URL
+        string URL = "https://twitter.com/intent/tweet";
+        string msg = $"Can you beat my time on level {LevelID} in #SilentEspionage? [{FloatToTime.convertFloatToTime(bestTimeFloat)}]";
+        string descriptionParameter = "Silent Espionage";
+        string downloadLink = "https://play.google.com/store/apps/details?id=com.HenryOliver.SilentEspionage";
+
+        //Tweet
+        Application.OpenURL($"{URL}?text={WWW.EscapeURL(msg+"\n"+descriptionParameter+"\n"+downloadLink)}");
+
+    }
 
     public void nextLevel()
     {
@@ -69,17 +89,22 @@ public class LevelManager : MonoBehaviour
             if (bestTimeFloat != Mathf.Infinity)
             {
                 continueUI.SetActive(true);
+                twitterUI.SetActive(true);
             }
         }
         else
         {
             continueUI.SetActive(true);
+            twitterUI.SetActive(true);
         }
     }
 
     void Debugger(string debugStr)
     {
-        debugger.text += '\n' + debugStr;
+        if (debugger)
+        {
+            debugger.text += '\n' + debugStr;
+        }
     }
 
     void SubmitTime()
@@ -91,6 +116,36 @@ public class LevelManager : MonoBehaviour
             case 1:
                 {
                     Social.ReportScore((long)(timer * 1000.0f), SlientEspionageAchievements.leaderboard_best_time_level_1, (bool success) =>
+                    {
+                        if (success)
+                        {
+                            Debugger("Leaderboard Submitted");
+                        }
+                        else
+                        {
+                            Debugger("Leaderboard Failed");
+                        }
+                    });
+                    break;
+                }
+            case 2:
+                {
+                    Social.ReportScore((long)(timer * 1000.0f), SlientEspionageAchievements.leaderboard_best_time_level_2, (bool success) =>
+                    {
+                        if (success)
+                        {
+                            Debugger("Leaderboard Submitted");
+                        }
+                        else
+                        {
+                            Debugger("Leaderboard Failed");
+                        }
+                    });
+                    break;
+                }
+            case 3:
+                {
+                    Social.ReportScore((long)(timer * 1000.0f), SlientEspionageAchievements.leaderboard_best_time_level_3, (bool success) =>
                     {
                         if (success)
                         {
@@ -144,9 +199,12 @@ public class LevelManager : MonoBehaviour
         }
 
         //DEBUGGER
-        debugger = GameObject.Find("DEBUG_OUTPUT").GetComponent<Text>();
-        Debugger("Best Time: " + bestTimeFloat.ToString());
-        Debugger("AD BOOL: " + PlayerPrefs.GetInt("noAdsPurchased").ToString());
+        if (GameObject.Find("DEBUG_OUTPUT"))
+        {
+            debugger = GameObject.Find("DEBUG_OUTPUT").GetComponent<Text>();
+            Debugger("Best Time: " + bestTimeFloat.ToString());
+            Debugger("AD BOOL: " + PlayerPrefs.GetInt("noAdsPurchased").ToString());
+        }
 
     }
 
@@ -277,7 +335,7 @@ public class LevelManager : MonoBehaviour
         //Check for 150 seconds or less completion time on all levels
         if (PlayerPrefs.HasKey("LEVELBESTTIME1") && PlayerPrefs.HasKey("LEVELBESTTIME2") && PlayerPrefs.HasKey("LEVELBESTTIME3"))
         {
-            if ((PlayerPrefs.GetFloat("LEVELBESTTIME1") <= 150.0f) && (PlayerPrefs.GetFloat("LEVELBESTTIME2") <= 150.0f) && (PlayerPrefs.GetFloat("LEVELBESTTIME3") <= 150.0f))
+            if ((PlayerPrefs.GetFloat("LEVELBESTTIME1") <= 70.0f) && (PlayerPrefs.GetFloat("LEVELBESTTIME2") <= 70.0f) && (PlayerPrefs.GetFloat("LEVELBESTTIME3") <= 70.0f))
             {
                 Social.ReportProgress(SlientEspionageAchievements.achievement_master_saboteur, 100, (bool success) =>
                 {
@@ -301,7 +359,18 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         if (adsEnabled)
         {
-            AdTime.AdThyme(AdTime.ADID_LOSS);
+            //Play ad every third death
+            int deathCount = PlayerPrefs.GetInt("deathCount");
+            if (deathCount >= 2)
+            {
+                AdTime.AdThyme(AdTime.ADID_LOSS);
+                PlayerPrefs.SetInt("deathCount", 0);
+            }
+            else
+            {
+                PlayerPrefs.SetInt("deathCount", deathCount + 1);
+            }
+            Debugger(deathCount.ToString());
         }
         endScreen();
     }

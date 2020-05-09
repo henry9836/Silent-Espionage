@@ -444,6 +444,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 218799608317671871}
     m_Modifications:
+    - target: {fileID: 41639455966249900, guid: a27848cbf26cb02419bac443192d5e32,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 284345731503494372, guid: a27848cbf26cb02419bac443192d5e32,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -514,6 +519,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 412996758396156254, guid: a27848cbf26cb02419bac443192d5e32,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2899876605854273637, guid: a27848cbf26cb02419bac443192d5e32,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3866739640119387895, guid: a27848cbf26cb02419bac443192d5e32,
         type: 3}
       propertyPath: m_Name
@@ -523,6 +538,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942061715793859948, guid: a27848cbf26cb02419bac443192d5e32,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a27848cbf26cb02419bac443192d5e32, type: 3}

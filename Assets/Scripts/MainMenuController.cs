@@ -1,5 +1,6 @@
 ﻿using GooglePlayGames;
 using GooglePlayGames.BasicApi;
+using GooglePlayGames.BasicApi.Multiplayer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,12 +23,18 @@ public class MainMenuController : MonoBehaviour
 
     void Debugger(string debugStr)
     {
-        debugger.text += '\n' + debugStr;
+        if (debugger)
+        {
+            debugger.text += '\n' + debugStr;
+        }
     }
 
     private void Start()
     {
-        debugger = GameObject.Find("DEBUG_OUTPUT").GetComponent<Text>();
+        //Find Debugger
+        if (GameObject.Find("DEBUG_OUTPUT")) {
+            debugger = GameObject.Find("DEBUG_OUTPUT").GetComponent<Text>();
+        }
 
         //Start Google Services
         PlayGamesPlatform.DebugLogEnabled = true;
@@ -39,7 +46,14 @@ public class MainMenuController : MonoBehaviour
         //Start Money Machine
         iap = GetComponent<MillionairBaby>();
 
-        
+        //Check for ads purchased
+        if (PlayerPrefs.GetInt("noAdsPurchased") == 0)
+        {
+            if (iap.checkPurchase(iap.removeAds))
+            {
+                PlayerPrefs.SetInt("noAdsPurchased", 1);
+            }
+        }
 
     }
 
@@ -73,17 +87,15 @@ public class MainMenuController : MonoBehaviour
             //Reset Save
             if (resetFlag)
             {
-                //Get ad playerpref
-                int adFlag = PlayerPrefs.GetInt("noAdsPurchased");
-
                 //Reset save data
                 Debugger("Resetting Player Prefs...");
                 PlayerPrefs.DeleteAll();
 
                 //Restore purchases
-                if (adFlag == 1)
+                //Check for ads purchased
+                if (iap.checkPurchase(iap.removeAds))
                 {
-                    PlayerPrefs.SetInt("noAdsPurchased", adFlag);
+                    PlayerPrefs.SetInt("noAdsPurchased", 1);
                 }
 
                 ResetUI.SetActive(false);
