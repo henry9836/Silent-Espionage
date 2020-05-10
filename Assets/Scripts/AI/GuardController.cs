@@ -234,11 +234,18 @@ public class GuardController : MonoBehaviour
 
     IEnumerator killMe()
     {
-        yield return new WaitForSecondsRealtime(7.0f);
-        //for (int i = 0; i < brokenEggPieces.Count; i++)
-        //{
-        //    Destroy(brokenEggPieces[i]);
-        //}
+        for (int i = 0; i < brokenEggPieces.Count; i++)
+        {
+            //Random Time
+            yield return new WaitForSecondsRealtime(Random.RandomRange(0.5f, 3.0f));
+
+            //Ignore the Particles
+            if (i < brokenEggPieces.Count-1)
+            {
+                Debug.Log($"Killing {brokenEggPieces[i].name}");
+                Destroy(brokenEggPieces[i]);
+            }
+        }
         Destroy(gameObject);
     }
 

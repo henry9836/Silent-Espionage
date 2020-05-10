@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
+using UnityEngine.UI;
 public class MillionairBaby : MonoBehaviour, IStoreListener
 {
 
     private static IStoreController storeCtrl;
     private static IExtensionProvider storeExtProvider;
+
+    private Text debugger;
 
     //Purchase IDS
     [HideInInspector]
@@ -15,6 +18,14 @@ public class MillionairBaby : MonoBehaviour, IStoreListener
     private void Start()
     {
         Initialize();
+    }
+
+    void Debugger(string debugStr)
+    {
+        if (debugger)
+        {
+            debugger.text += '\n' + debugStr;
+        }
     }
 
     public void Initialize()
@@ -31,6 +42,12 @@ public class MillionairBaby : MonoBehaviour, IStoreListener
             builder.AddProduct(removeAds, ProductType.NonConsumable);
 
             UnityPurchasing.Initialize(this, builder);
+
+            //Find Debugger
+            if (GameObject.Find("DEBUG_OUTPUT"))
+            {
+                debugger = GameObject.Find("DEBUG_OUTPUT").GetComponent<Text>();
+            }
         }
     }
 
@@ -41,15 +58,20 @@ public class MillionairBaby : MonoBehaviour, IStoreListener
             if (product != null && product.availableToPurchase)
             {
                 //Debug.Log("Purchasing Product...");
+                Debugger($"recept check: {checkPurchase(ID)}");
+                Debugger("Purchasing Product...");
                 storeCtrl.InitiatePurchase(ID);
+                Debugger("Purchased");
             }
             else
             {
+                Debugger("Attempted to purchase an item but IAP is not initalised");
                 Debug.LogWarning("Attempted to purchase an item but it either doesn't exists or is not available to be purchased");
             }
         }
         else
         {
+            Debugger("Attempted to purchase an item but IAP is not initalised");
             Debug.LogWarning("Attempted to purchase an item but IAP is not initalised");
         }
     }
