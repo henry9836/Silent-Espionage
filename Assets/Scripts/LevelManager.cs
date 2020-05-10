@@ -354,6 +354,11 @@ public class LevelManager : MonoBehaviour
 
     }
 
+    public void exitToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     IEnumerator showAd()
     {
         yield return new WaitForSeconds(1.5f);
